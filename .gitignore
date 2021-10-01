@@ -1,2 +1,3 @@
 # File with passwords and tokens
-/docker/docker-compose.override.yml
+/docker/docker-compose.override*.yml
+!/docker/docker-compose.override-template.yml

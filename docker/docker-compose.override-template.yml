@@ -18,7 +18,7 @@ services:
       WEBLATE_ALLOWED_HOSTS: <COMMA-SEPARATED LIST OF THE SERVER IPs OR DOMAINS LIKE LOCALHOST FOR TESTING>
       WEBLATE_SITE_TITLE: <SERVER WEB TITLE>
       WEBLATE_REQUIRE_LOGIN: 1
-      LC_ALL: C
+      LC_ALL: C.UTF-8
 
       # [Optional] Only if the server runs with HTTPS, otherwise remove
       WEBLATE_ENABLE_HTTPS: 1
