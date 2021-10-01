@@ -1,0 +1,3 @@
+[submodule "customization"]
+	path = customization
+	url = git@github.com:TraduSquare/weblate-customization

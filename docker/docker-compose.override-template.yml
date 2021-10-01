@@ -1,0 +1,93 @@
+version: '3'
+services:
+  weblate:
+    ports:
+      # Only if HTTPS is not setup. You can choose other port than 80.
+      - 80:8080
+    environment:
+      WEBLATE_DEBUG: 0
+      WEBLATE_ADMIN_NAME: <NAME OF THE ADMIN USER IN WEBLATE>
+      WEBLATE_ADMIN_EMAIL: <REAL OR FAKE EMAIL FOR THE ADMIN USER IN WEBLATE>
+      # If you remove the next line, weblate will random generate one password and print to the log
+      # If the user already exists, it will change the password.
+      WEBLATE_ADMIN_PASSWORD: <THE PASSWORD OF THE ADMIN USER IN WEBLATE>
+      WEBLATE_SERVER_EMAIL: <SENDER EMAIL FOR EMAILS TO THE ADMINS>
+      WEBLATE_DEFAULT_FROM_EMAIL: <SENDER EMAIL FOR EMAILS TO THE USERS>
+      WEBLATE_TIMEZONE: Europe/Madrid
+      WEBLATE_SITE_DOMAIN: <SERVER WEB DOMAIN OR IP>
+      WEBLATE_ALLOWED_HOSTS: <COMMA-SEPARATED LIST OF THE SERVER IPs OR DOMAINS>
+      WEBLATE_SITE_TITLE: <SERVER WEB TITLE>
+      WEBLATE_REQUIRE_LOGIN: 1
+      LC_ALL: C
+
+      # [Optional] Only if the server runs with HTTPS, otherwise remove
+      WEBLATE_ENABLE_HTTPS: 1
+      WEBLATE_IP_PROXY_HEADER: HTTP_X_FORWARDED_FOR
+
+      POSTGRES_DATABASE: weblate
+      # These settings value must match with the same env vars of the database container below
+      POSTGRES_USER: <USER NAME FOR DB>
+      POSTGRES_PASSWORD: <PASSWORD FOR DB>
+
+      # [Optional] Configure email server like sendgrid so weblate can send
+      # registration emails, alerts and more.
+      WEBLATE_EMAIL_HOST: <EMAIL HOST SERVER>
+      WEBLATE_EMAIL_USE_TLS: 1
+      WEBLATE_EMAIL_PORT: <EMAIL HOST SERVER PORT>
+      WEBLATE_EMAIL_HOST_USER: <EMAIL HOST USER>
+      WEBLATE_EMAIL_HOST_PASSWORD: <EMAIL HOST PASSWORD>
+      # If the previous email config is not set, then uncomment this line to not send emails
+      # There are other possible backends like console or file based:
+      # https://docs.djangoproject.com/en/3.2/topics/email/#console-backend
+      # WEBLATE_EMAIL_BACKEND: django.core.mail.backends.dummy.EmailBackend
+
+      # [Optional] Configure rollbar to recieve an email when weblate has an internal failure
+      ROLLBAR_KEY: <ROLLBAR TOKEN>
+
+      # [Optional] Only if you have setup emails.
+      # Otherwise set to 0 and create the users manually via admin user
+      WEBLATE_REGISTRATION_OPEN: 1
+
+      # Ignore known warnings from Weblate server
+      # If you don't want to configure automatic backups with Borg, uncomment
+      # the next line to silent the warning about that: weblate.I028
+      # WEBLATE_SILENCED_SYSTEM_CHECKS: weblate.I028
+
+      # [Optional] Remove unwanted default checks and autofixes
+      # - NewLineCountCheck: gives warning if the translated has more or less lines than the original text
+      WEBLATE_REMOVE_CHECK: weblate.checks.chars.NewLineCountCheck
+      WEBLATE_REMOVE_AUTOFIX: weblate.trans.autofixes.whitespace.SameBookendingWhitespace,weblate.trans.autofixes.chars.ReplaceTrailingDotsWithEllipsis,weblate.trans.autofixes.chars.RemoveZeroSpace
+
+      # [Optional] Customize the server with logos and custom checks
+      # Put your customization files in the "customization" folder. Similar to
+      # this repository: https://github.com/WeblateOrg/customize-example
+      # These lines cannot be enabled in a non-existing Weblate. Once you run Weblate the first stop
+      # stop it, uncomment these lines if needed and start it again.
+      WEBLATE_ADD_APPS: <MY_PLUGIN>
+      WEBLATE_ADD_CHECK: <MY_PLUGIN>.checks.<MY_CUSTOM_CHECK>
+    volumes:
+      - ./customization/<MY_PLUGIN>:/app/data/python/<MY_PLUGIN>
+
+  database:
+    environment:
+      # These settings value must match with the same env vars of the weblate container above
+      POSTGRES_PASSWORD: <USERNAME FOR DB>
+      POSTGRES_USER: <PASSWORD FOR DB>
+
+  # Remove this section if you don't want to use HTTPS
+  https-portal:
+    image: steveltn/https-portal:1
+    volumes:
+      - ssl-certs:/var/lib/https-portal
+    ports:
+      - 80:80
+      - 443:443
+    restart: always
+    environment:
+      STAGE: production
+      PROXY_READ_TIMEOUT: 3600
+      CLIENT_MAX_BODY_SIZE: 100M
+      DOMAINS: '<SERVER DOMAIN> -> http://weblate:8080'
+
+volumes:
+  ssl-certs: {}
