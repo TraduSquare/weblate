@@ -1,9 +1,9 @@
 version: '3'
 services:
   weblate:
-    ports:
-      # Only if HTTPS is not setup. You can choose other port than 80.
-      - 80:8080
+    # Only if HTTPS is not setup. You can choose other port than 8080.
+    # ports:
+      # - 8080:8080
     environment:
       WEBLATE_DEBUG: 0
       WEBLATE_ADMIN_NAME: <NAME OF THE ADMIN USER IN WEBLATE>
@@ -63,10 +63,10 @@ services:
       # this repository: https://github.com/WeblateOrg/customize-example
       # These lines cannot be enabled in a non-existing Weblate. Once you run Weblate the first stop
       # stop it, uncomment these lines if needed and start it again.
-      WEBLATE_ADD_APPS: <MY_PLUGIN>
-      WEBLATE_ADD_CHECK: <MY_PLUGIN>.checks.<MY_CUSTOM_CHECK>
-    volumes:
-      - ./customization/<MY_PLUGIN>:/app/data/python/<MY_PLUGIN>
+      # WEBLATE_ADD_APPS: <MY_PLUGIN>
+      # WEBLATE_ADD_CHECK: <MY_PLUGIN>.checks.<MY_CUSTOM_CHECK>
+    # volumes:
+    #   - ./customization/<MY_PLUGIN>:/app/data/python/<MY_PLUGIN>
 
   database:
     environment:
