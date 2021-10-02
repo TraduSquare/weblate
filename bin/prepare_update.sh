@@ -26,7 +26,4 @@ echo "- Weblate DB dump"
 docker-compose -p $COMPOSE_PROJECT_NAME exec weblate ls -l /app/data/backups/database.sql
 
 echo "- CRON backup"
-# TODO
-
-echo "- Borg backup"
-# TODO
+ls -lh "$root_dir/backups/daily/"
