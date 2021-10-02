@@ -18,6 +18,9 @@
    1. `python -m venv .env` from the root directory of the repository.
    2. `source .env/bin/activate`
    3. `pip install wlc`
+9. Configure a CRON job to create a backup of the volumes daily:
+   1. `sudo crontab -e` and append a line like this to run every dat at 3am:
+      `0 3 * * * <repo>/bin/create_backup.sh daily`
 
 For more information check the Weblate documentation:
 
