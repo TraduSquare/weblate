@@ -21,6 +21,12 @@
 9. Configure a CRON job to create a backup of the volumes daily:
    1. `sudo crontab -e` and append a line like this to run every dat at 3am:
       `0 3 * * * <repo>/bin/create_backup.sh daily`
+10. Configure remote backups with [BorgBackup](https://www.borgbackup.org/)
+    1. (Target machine) Install an SSH server (sshd).
+    2. (Target machine) Install _BorgBackup_ with your distro package manager
+    3. (Target machine) Create a new user user
+    4. (Target machine) Add the public key of Weblate to the authorized hosts
+    5. Specify the target machine in the Weblate backup UI as `user@host:/path`
 
 For more information check the Weblate documentation:
 
