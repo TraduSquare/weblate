@@ -17,8 +17,9 @@ backup_volume()
   volume=$1
   target=$2
 
+  # With podman we need the argument --security-opt label=disable
   echo "Backing up $volume"
-  docker run -it --rm --security-opt label=disable -v ${COMPOSE_PROJECT_NAME}_${volume}:${target} -v ${output}/:/backup alpine tar czf /backup/${volume}.tar.gz ${target}
+  docker run -it --rm -v ${COMPOSE_PROJECT_NAME}_${volume}:${target} -v ${output}/:/backup alpine tar czf /backup/${volume}.tar.gz ${target}
 }
 
 backup_volume weblate-data /app/data
