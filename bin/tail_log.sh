@@ -1,9 +1,9 @@
 #!/bin/bash
-bin_dir="$(dirname "$BASH_SOURCE")/.."
+root_dir="$(readlink -f $(dirname "$BASH_SOURCE")/..)"
 
 set -Eeuo pipefail
 
-cd "$bin_dir/docker"
+cd "$root_dir/docker"
 source ./project_name.sh
 
 # Because podman-compose doesn't support yet the env vars...

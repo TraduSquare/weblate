@@ -8,4 +8,6 @@ source ./project_name.sh
 
 # Because podman-compose doesn't support yet the env vars...
 # https://github.com/containers/podman-compose/pull/250
-docker-compose -p $COMPOSE_PROJECT_NAME down
+docker-compose -p $COMPOSE_PROJECT_NAME pull
+
+"$root_dir/bin/start.sh"

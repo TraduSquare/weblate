@@ -1,0 +1,3 @@
+[weblate]
+url = http://IP:PORT/api/
+key = TOKEN
