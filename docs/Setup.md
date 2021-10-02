@@ -26,6 +26,7 @@
     2. (Target machine) Install _BorgBackup_ with your distro package manager
     3. (Target machine) Create a new user user
     4. (Target machine) Add the public key of Weblate to the authorized hosts
+       and make sure the file has permissions 600.
     5. Specify the target machine in the Weblate backup UI as `user@host:/path`
 
 For more information check the Weblate documentation:
