@@ -11,3 +11,6 @@
   - Check the timestamp of the different backups.
 - `update.sh`: pull the latest Weblate images and start it to run the migration
 - `unlock_projects.sh`: unlock all the translation projects.
+- `create_backup.sh`: create a backup to `/backups`. You can specify the
+  subfolder name with the first argument, otherwise it takes the date and time.
+- `reload_checks.sh`: reload the translation checks for a given project.
