@@ -27,3 +27,4 @@ docker-compose -p $COMPOSE_PROJECT_NAME exec weblate ls -l /app/data/backups/dat
 
 echo "- CRON backup"
 ls -lh "$root_dir/backups/daily/"
+tar -t -v --full-time -f "$root_dir/backups/daily/weblate-data.tar.gz" | grep "app/data/backups"

@@ -40,3 +40,6 @@ ls -lh "$output"
 
 echo "Display timestamp of some DB files"
 tar -t -v --full-time -f "$output/postgres-data.tar.gz" | grep "pg_stat"
+
+echo "Display timestamp of DB dump"
+tar -t -v --full-time -f "$output/weblate-data.tar.gz" | grep "app/data/backups"
