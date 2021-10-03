@@ -21,7 +21,7 @@
 
 1. Install Python 3
 2. Create the Python environment for the maintenance scripts running:
-   1. `python -m venv .env` from the root directory of the repository.
+   1. `python3 -m venv .env` from the root directory of the repository.
    2. `source .env/bin/activate`
    3. `pip install wlc`
 3. Copy and fill `/bin/template.weblate` to `/bin/.weblate` with the API token
