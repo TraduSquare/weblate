@@ -35,7 +35,14 @@
    3. (Target machine) Create a new user user
    4. (Target machine) Add the public key of Weblate to the authorized hosts and
       make sure the file has permissions 600.
-   5. Specify the target machine in the Weblate backup UI as `user@host:/path`
+   5. Specify the target machine in the Weblate backup UI as
+      `ssh://user@host:port/path`
+
+This setup will perform the automatic backups at:
+
+- Database dump: 1:30 am
+- Borg incremental backup: 2:00 am
+- CRON job to backup container volumes: 3:00 am
 
 ## References
 
