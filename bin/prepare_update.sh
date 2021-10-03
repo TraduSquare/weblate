@@ -17,7 +17,7 @@ docker-compose -p $COMPOSE_PROJECT_NAME exec --user weblate weblate weblate push
 
 echo "Checking status of projects"
 source "$root_dir/.env/bin/activate"
-python "$root_dir/bin/check_weblate_projects.py"
+python3 "$root_dir/bin/check_weblate_projects.py"
 
 read -rsp $'Press any key to continue...\n' -n1 key
 
